@@ -3,24 +3,23 @@
 <title>UPLOAD pics/vids</title>
 </head>
 <body>
-<script src="https://product-gallery.cloudinary.com/all.js" type="text/javascript">
-</script>  
+<button id="upload_widget" class="cloudinary-button">Upload files</button>
 
-<div id="my-gallery" style="max-width:80%;margin:auto">
-</div>
+<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
 
 <script type="text/javascript">  
-const myGallery= cloudinary.galleryWidget({
-  container: "#my-gallery",
-  cloudName: "dgkpint6f",
-  mediaAssets: [
-    {tag: "electric_car_product_gallery_demo"}, // by default mediaType: "image"
-    {tag: "electric_car_product_gallery_demo", mediaType: "video"}, 
-    {tag: "electric_car_360_product_gallery_demo", mediaType: "spin"}
-  ]
-});
+var myWidget = cloudinary.createUploadWidget({
+  cloudName: 'picsnvidscloud', 
+  uploadPreset: 'my_preset'}, (error, result) => { 
+    if (!error && result && result.event === "success") { 
+      console.log('Done! Here is the image info: ', result.info); 
+    }
+  }
+)
 
-myGallery.render();
+document.getElementById("upload_widget").addEventListener("click", function(){
+    myWidget.open();
+  }, false);
 </script>
 </body>
 </html>
